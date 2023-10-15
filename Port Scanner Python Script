@@ -1,0 +1,36 @@
+import socket
+import sys
+import datetime import datetime
+
+rServer = input("Enter the host you want to scan: ")
+rServerIP = socket.gethostbyname(rServer)
+
+print("Enter the range of ports...")
+startPort = input("Enter the start port: ")
+endPort = input("Enter the end port: ")
+
+print("Please wait...", rServerIP)
+
+time = datetime.now()
+
+try:
+    for port in range(int(startPort), int(endPort)):
+              print("Checking port {} ...".format(port))
+              sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+              sock.timeout(4)
+              result = sock.connect_ex((rServerIP, port))
+              if result == 0:
+                        print("Port {}: Open".format(port))
+              else:
+                        print("Port {}: Closed".format(port))
+              sock.close()
+
+except KeyboardInterrupt:
+	print("You pressed Ctrl+C")
+	sys.exit()
+except socket.gaierror:
+	print('Hostname could not be resolved. Exiting')
+	sys.exit()
+except socket.error:
+	print("Couldn't connect to server")
+	sys.exit()
