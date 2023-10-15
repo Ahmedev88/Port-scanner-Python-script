@@ -1,6 +1,6 @@
 import socket
 import sys
-import datetime import datetime
+import datetime 
 
 rServer = input("Enter the host you want to scan: ")
 rServerIP = socket.gethostbyname(rServer)
